@@ -1,0 +1,187 @@
+{
+  "name": "Text Input&Image Output-Base64 Ver",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"markdown_content\": \"This is a picture\"\n}\n",
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        624,
+        -48
+      ],
+      "id": "c5fb393f-0adb-4f59-a5e0-d00324205fe7",
+      "name": "FinalOutput"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.instruction }}",
+        "options": {
+          "passthroughBinaryImages": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        -48
+      ],
+      "id": "bc3fb2cc-468e-44df-a571-5406b8d00ef7",
+      "name": "edit image agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gemini-2.5-flash-image-preview",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -96,
+        160
+      ],
+      "id": "3998b88d-51e3-4665-8232-14bf037299d7",
+      "name": "gemini-2.5-flash-image",
+      "credentials": {
+        "openAiApi": {
+          "id": "gX4wl7HuoM0XrmkH",
+          "name": "MuleRouter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "=image_url.url",
+        "binaryPropertyName": "image_output",
+        "options": {
+          "fileName": "image.png",
+          "mimeType": "image/png"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        -48
+      ],
+      "id": "37f24355-6d39-4f38-ba6e-806a8125a77b",
+      "name": "Convert base64 to File"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        272,
+        -48
+      ],
+      "id": "67394f8f-4fbb-4ab8-9a55-f897074c96d9",
+      "name": "content extract image"
+    },
+    {
+      "parameters": {
+        "formTitle": "aaa",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "instruction",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -320,
+        -48
+      ],
+      "id": "d826204b-32ad-4381-9676-492dc0e64522",
+      "name": "On form submission",
+      "webhookId": "7dc655a8-203f-491a-9476-d0fb4a025e8b"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "edit image agent": {
+      "main": [
+        [
+          {
+            "node": "content extract image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gemini-2.5-flash-image": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "edit image agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert base64 to File": {
+      "main": [
+        [
+          {
+            "node": "FinalOutput",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "content extract image": {
+      "main": [
+        [
+          {
+            "node": "Convert base64 to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "edit image agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8608cced-258d-4f72-8a2d-38f579970bde",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "697c2925acde2b73d75889d1e2557aa1c20b854dcdae759463ade599a1904887"
+  },
+  "id": "AwYYGwh288JQmWWx",
+  "tags": []
+}
