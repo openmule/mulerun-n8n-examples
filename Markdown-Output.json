@@ -1,0 +1,80 @@
+{
+  "name": "Markdown Output Example",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Main Content",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "The Main Content"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "091fd08c-2863-45f5-9bf1-d8b7a4f28ded",
+      "name": "On form submission",
+      "webhookId": "8e519ecb-81e1-48b7-bacd-93f16c44731a"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bb1fad0f-03f3-4da6-b045-4d00b10e9b22",
+              "name": "markdown_content",
+              "value": "=![Example Image](https://i.ibb.co/B0nsxmm/mule.png)\n{{ $json['The Main Content'] }}",
+              "type": "string"
+            },
+            {
+              "id": "332e7cd7-b40e-43c1-b2ff-6e12b1797c49",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        0
+      ],
+      "id": "60cf33d8-e35d-4f9e-9b78-4bf12c96e5a9",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5b872904-f130-43f8-bbc2-7665360410e5",
+  "meta": {
+    "instanceId": "697c2925acde2b73d75889d1e2557aa1c20b854dcdae759463ade599a1904887"
+  },
+  "id": "3RlVV2YIchcXC1W8",
+  "tags": []
+}

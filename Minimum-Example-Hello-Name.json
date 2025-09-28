@@ -1,0 +1,67 @@
+{
+  "name": "Minimum Workflow to Type Your Name",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Type Your Name",
+        "formDescription": "This is a minimum best practice on MuleRun",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "45e189da-29ec-4e2c-b609-933289fb5a29",
+      "name": "On form submission",
+      "webhookId": "567da0a2-0c9e-40f4-bd3b-29b56dfccaaa"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"final_output\": \"It's a pleasure to know your name  {{ $json.Name }}. Welcome to MuleRun! \"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "94c43d92-e9ee-4b0f-a162-e019b7d00dc7",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2b99cd10-c8b6-4f31-8a1d-92b7a99cc9af",
+  "meta": {
+    "instanceId": "697c2925acde2b73d75889d1e2557aa1c20b854dcdae759463ade599a1904887"
+  },
+  "id": "ke705tGJQFgV0wAG",
+  "tags": []
+}
