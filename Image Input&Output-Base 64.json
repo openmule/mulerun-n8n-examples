@@ -1,5 +1,5 @@
 {
-  "name": "Image Input&Output-Base 64",
+  "name": "Image Input& Image Output",
   "nodes": [
     {
       "parameters": {
@@ -11,28 +11,11 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1120,
-        32
+        800,
+        -96
       ],
-      "id": "fe8ff40b-b2a6-409b-a645-705ac97d9509",
+      "id": "409d5550-b2b7-4e88-a88b-2246c8ee690b",
       "name": "FinalOutput"
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.instruction }}",
-        "options": {
-          "passthroughBinaryImages": true
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 2.2,
-      "position": [
-        416,
-        32
-      ],
-      "id": "e9c3abf9-3785-4d01-b470-05a5d1c79a7b",
-      "name": "edit image agent"
     },
     {
       "parameters": {
@@ -46,10 +29,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        416,
-        224
+        -80,
+        96
       ],
-      "id": "a065aa5c-1afb-4493-8edb-6c9c2a76b524",
+      "id": "0cf61405-f7f1-4066-b6d1-f933ab776f7d",
       "name": "gemini-2.5-flash-image",
       "credentials": {
         "openAiApi": {
@@ -71,10 +54,10 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        944,
-        32
+        608,
+        -96
       ],
-      "id": "46bd4276-9ea4-43a6-b146-d9a62e4a3ff0",
+      "id": "a4dfa472-35b6-432a-a5ca-584e37b15c04",
       "name": "Convert base64 to File"
     },
     {
@@ -85,11 +68,41 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        768,
-        32
+        272,
+        -96
       ],
-      "id": "5ac07fa4-99ea-4484-93c4-c796521db3bb",
+      "id": "fb4a343b-6c8e-4d9e-a411-37e83004c62e",
       "name": "content extract image"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 筛选包含image_url字段的item\nreturn items.filter(item => {\n  return item.json.image_url !== undefined;\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        432,
+        -96
+      ],
+      "id": "7cceb914-62f0-4d97-b2fb-2a57ade00fdc",
+      "name": "Get Image Items"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.instruction }}",
+        "options": {
+          "passthroughBinaryImages": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -80,
+        -96
+      ],
+      "id": "45eaba2d-968a-4cdc-bf47-5ed7f89833cd",
+      "name": "generate image agent"
     },
     {
       "parameters": {
@@ -97,14 +110,13 @@
         "formFields": {
           "values": [
             {
-              "fieldLabel": "image",
-              "fieldType": "file",
-              "multipleFiles": false,
+              "fieldLabel": "instruction",
               "requiredField": true
             },
             {
-              "fieldLabel": "instruction",
-              "requiredField": true
+              "fieldLabel": "image",
+              "fieldType": "file",
+              "multipleFiles": false
             }
           ]
         },
@@ -113,32 +125,21 @@
       "type": "n8n-nodes-base.formTrigger",
       "typeVersion": 2.2,
       "position": [
-        192,
-        32
+        -272,
+        -96
       ],
-      "id": "93435c7e-f92a-43b4-9473-1db8b2a454b5",
+      "id": "0988723e-1a4b-4bab-a984-3db85f2d90ba",
       "name": "On form submission",
       "webhookId": "7dc655a8-203f-491a-9476-d0fb4a025e8b"
     }
   ],
   "pinData": {},
   "connections": {
-    "edit image agent": {
-      "main": [
-        [
-          {
-            "node": "content extract image",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "gemini-2.5-flash-image": {
       "ai_languageModel": [
         [
           {
-            "node": "edit image agent",
+            "node": "generate image agent",
             "type": "ai_languageModel",
             "index": 0
           }
@@ -160,7 +161,29 @@
       "main": [
         [
           {
+            "node": "Get Image Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Image Items": {
+      "main": [
+        [
+          {
             "node": "Convert base64 to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "generate image agent": {
+      "main": [
+        [
+          {
+            "node": "content extract image",
             "type": "main",
             "index": 0
           }
@@ -171,7 +194,7 @@
       "main": [
         [
           {
-            "node": "edit image agent",
+            "node": "generate image agent",
             "type": "main",
             "index": 0
           }
@@ -183,11 +206,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "efb6f43e-9fbf-4f62-b35b-a830c6a6e1ac",
+  "versionId": "a2b407e9-8061-478c-81e5-31f733b0a45b",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "697c2925acde2b73d75889d1e2557aa1c20b854dcdae759463ade599a1904887"
   },
-  "id": "wcMLoF1qA1Qdw4Pa",
+  "id": "906hYnmXXNTSyxKW",
   "tags": []
 }
