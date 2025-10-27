@@ -1,0 +1,81 @@
+{
+  "name": "HTML",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "MuleRun HTML Output",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Main Content ",
+              "placeholder": "Input some messages as a part of html output. "
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "63108790-a675-4d43-9fbc-c65a77e1dec2",
+      "name": "On form submission",
+      "webhookId": "317f52a6-9d54-48bc-b4b8-8f61a73de720"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "33993f18-baeb-4bc9-889c-874c95d6af1f",
+              "name": "html_content",
+              "value": "=<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>展示 Mule 图片</title>\n    <style>\n        body {\n            font-family: Arial, sans-serif;\n            max-width: 900px;\n            margin: 0 auto;\n            padding: 20px;\n        }\n        img {\n            max-width: 100%;\n            height: auto;\n            display: center;\n            margin: 20px 0;\n            border-radius: 8px;\n            /* box-shadow: 0 2px 10px rgba(0,0,0,0.1); */\n        }\n\n        blockquote {\n            font-size: 20px;\n            font-style: italic;\n            font-weight: bold;\n            font-family: Arial, sans-serif;\n            color: #333;\n            background-color: #f0f0f0;\n            padding: 10px;\n            border-radius: 5px;\n        }\n    </style>\n</head> \n<body>\n    <h1 style=\"color:darkblue;\">Welcome to MuleRun</h1>\n    <p>Welcome to MuleRun! \n        Now, you can create HTML through n8n on MuleRun. \n        What you're currently seeing is an HTML template we provide,  \n        with witch can you use this template to create your own n8n HTML Agent.</p >\n    <svg width=\"1000\" height=\"338\" viewBox=\"0 0 1000 338\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 100%; height: auto;\">\n    <rect x=\"93\" y=\"156\" width=\"56\" height=\"56\" fill=\"#B7B8CB\"/>\n    <rect x=\"377\" y=\"156\" width=\"56\" height=\"56\" fill=\"#999AD0\"/>\n    <rect x=\"677\" y=\"156\" width=\"56\" height=\"56\" fill=\"#6D72FF\"/>\n    <rect x=\"275\" y=\"166\" width=\"40\" height=\"40\" fill=\"#EE9090\"/>\n    <rect x=\"559\" y=\"166\" width=\"40\" height=\"40\" fill=\"#EE9090\"/>\n    <rect x=\"859\" y=\"166\" width=\"40\" height=\"40\" fill=\"#EEA590\"/>\n    <rect x=\"149\" y=\"212\" width=\"48\" height=\"48\" fill=\"#B2CCA2\"/>\n    <rect x=\"433\" y=\"212\" width=\"48\" height=\"48\" fill=\"#B2CCA2\"/>\n    <rect x=\"733\" y=\"212\" width=\"48\" height=\"48\" fill=\"#B2CCA2\"/>\n    <rect x=\"211\" y=\"134\" width=\"32\" height=\"32\" fill=\"#ADF4F9\"/>\n    <rect x=\"495\" y=\"134\" width=\"32\" height=\"32\" fill=\"#ADF4F9\"/>\n    <rect x=\"795\" y=\"134\" width=\"32\" height=\"32\" fill=\"#6BAACC\"/>\n</svg>\n    <img src=\"https://i.ibb.co/B0nsxmm/mule.png\" alt=\"Mule 平台示意图\">\n \n    <p>Here is a passage from your own input:</p>\n    <blockquote cite=\"http://www.worldwildlife.org/who/index.html\">\n    {{ $json['Main Content '] }}\n    </blockquote>\n\n    <p>If you have any questions while developing, please contact our support team. </p >\n</body>\n</html>",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        0
+      ],
+      "id": "d821bd1e-875c-4588-a681-0872f610ab8e",
+      "name": "HTML Output"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTML Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML Output": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "180851b3-e8fa-45ac-a33e-b84de7423e4b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "697c2925acde2b73d75889d1e2557aa1c20b854dcdae759463ade599a1904887"
+  },
+  "id": "e2VxAcMSLI53JtKm",
+  "tags": []
+}
