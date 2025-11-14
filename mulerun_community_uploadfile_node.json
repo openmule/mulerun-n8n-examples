@@ -1,0 +1,113 @@
+{
+  "name": "mulerun_community_uploadfile_node",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "n8n form title",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "text input",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "file upload",
+              "fieldType": "file",
+              "acceptFileTypes": ".png",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -624,
+        -16
+      ],
+      "id": "a0251dc7-8ddf-418b-af11-e0a3d402db19",
+      "name": "On form submission1",
+      "webhookId": "575505ca-4207-4010-873d-ae4c22f6a89c"
+    },
+    {
+      "parameters": {
+        "binaryPropertyName": "file_upload",
+        "TargetPath": "=/ssss/{{$now.toMillis()}}.png"
+      },
+      "type": "@openmule/n8n-nodes-workspace.MuleRun",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        -16
+      ],
+      "id": "d761df99-7b4b-41a9-8643-41bd81210571",
+      "name": "Upload files to MuleRun",
+      "credentials": {
+        "muleRunApi": {
+          "id": "sp6zQA0ypC8OED9E",
+          "name": "stg mulerun ywb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "93d0e0ad-aaaf-47e3-a393-5e68a1f7783b",
+              "name": "markdown_content",
+              "value": "=![Example Image]({{ $json.presigned_url }})",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -96,
+        -16
+      ],
+      "id": "5b378cd0-c97c-4c81-ab9a-1a613018bfec",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission1": {
+      "main": [
+        [
+          {
+            "node": "Upload files to MuleRun",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload files to MuleRun": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b901bb92-a96a-4d5c-9b98-8468c392aa1b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "48e73233023935e60182648c780bf1710cdee400fbac16a5c46d3f5e08063057"
+  },
+  "id": "TpZjv6hAgMlVjrVw",
+  "tags": []
+}
